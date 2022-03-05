@@ -1,0 +1,26 @@
+
+===== Final Statistics =====
+Executable name:      /home/lucia/warwick/archi/archiCW/ACACGS/acacgs
+Dimensions:           20 20 20
+Number of iterations: 149
+Final residual:       1.902160e-50
+
+=== Time ==
+Total:           1.087630e-01 seconds
+ddot Kernel:     7.154000e-03 seconds
+waxpby Kernel:   1.123400e-02 seconds
+sparsemv Kernel: 9.010400e-02 seconds
+
+=== FLOP ==
+Total:           7.628800e+07 floating point operations
+ddot Kernel:     4.768000e+06 floating point operations
+waxpby Kernel:   7.152000e+06 floating point operations
+sparsemv Kernel: 6.436800e+07 floating point operations
+
+=== MFLOP/s ==
+Total:           7.014150e+02 MFLOP/s
+ddot Kernel:     6.664803e+02 MFLOP/s
+waxpby Kernel:   6.366388e+02 MFLOP/s
+sparsemv Kernel: 7.143745e+02 MFLOP/s
+
+Difference between computed and exact = 1.887379e-15 

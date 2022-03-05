@@ -1,6 +1,6 @@
 #Setup compiler and key flags
 CC = gcc
-CPPFLAGS = -O0 -Wall -Wextra -Werror -msse4
+CPPFLAGS = -O0 -Wall -Wextra -Werror -mavx2 -g
 LIB_PATHS = -lm
 TARGET = acacgs
 
