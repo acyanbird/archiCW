@@ -19,6 +19,8 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
     __m256d xVector;
     __m256d yVector;
 
+
+
     if (y == x) {
         // fmadd = a*b+c
         for (i = 0; i < loopN; i += loopFactor) {
@@ -40,7 +42,7 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
         }
         for (; i < n; i++) {
             // wrap up, store to local result
-            local_result += x[i] * x[i];
+            local_result += x[i] * y[i];
         }
     }
 
@@ -50,8 +52,24 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
     __m128d sumHigh = _mm256_extractf128_pd(resultVector, 1);
     // cut lower part of vector
     __m128d sum = _mm_add_pd(sumHigh, _mm256_castpd256_pd128(resultVector));
-    _mm_loadl_pd(sum, result);
-    *result += local_result;
+    _mm_storel_pd(result, sum);
+    *result = *result + local_result;
 
     return 0;
 }
+
+//int ddot (const int n, const double * const x, const double * const y, double * const result) {
+//    double local_result = 0.0;
+//    if (y==x){
+//        for (int i=0; i<n; i++) {
+//            local_result += x[i]*x[i];
+//        }
+//    } else {
+//        for (int i=0; i<n; i++) {
+//            local_result += x[i]*y[i];
+//        }
+//    }
+//    *result = local_result;
+//
+//    return 0;
+//}
