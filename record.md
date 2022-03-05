@@ -56,4 +56,29 @@ sparsemv Kernel: 5.250544e+02 MFLOP/s
 
 Difference between computed and exact = 1.887379e-15 
 
+#### with waxpby avx
+===== Final Statistics =====
+Executable name:      ./acacgs
+Dimensions:           20 20 20
+Number of iterations: 149
+Final residual:       1.902160e-50
 
+=== Time ==
+Total:           1.434340e-01 seconds
+ddot Kernel:     9.372000e-03 seconds
+waxpby Kernel:   1.485200e-02 seconds
+sparsemv Kernel: 1.188540e-01 seconds
+
+=== FLOP ==
+Total:           7.628800e+07 floating point operations
+ddot Kernel:     4.768000e+06 floating point operations
+waxpby Kernel:   7.152000e+06 floating point operations
+sparsemv Kernel: 6.436800e+07 floating point operations
+
+=== MFLOP/s ==
+Total:           5.318683e+02 MFLOP/s
+ddot Kernel:     5.087495e+02 MFLOP/s
+waxpby Kernel:   4.815513e+02 MFLOP/s
+sparsemv Kernel: 5.415720e+02 MFLOP/s
+
+Difference between computed and exact = 1.887379e-15
