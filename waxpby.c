@@ -20,8 +20,7 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
     __m256d betaV = _mm256_set1_pd(beta);
 
     // init vector
-    __m256d xVector;
-    __m256d yVector;
+    __m256d xVector, yVector;
 
     // 4 double per 256 bits
     int loopFactor = 4;

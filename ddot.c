@@ -16,10 +16,7 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
     int loopFactor = 4;// 4 double in 256
     int loopN = n / loopFactor * loopFactor;
     __m256d resultVector = _mm256_setzero_pd();
-    __m256d xVector;
-    __m256d yVector;
-
-
+    __m256d xVector, yVector;
 
     if (y == x) {
         // fmadd = a*b+c
