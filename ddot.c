@@ -24,7 +24,7 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
     if (y == x) {
         // fmadd = a*b+c
         for (i = 0; i < loopN; i += loopFactor) {
-            xVector = _mm256_load_pd(x + i);
+            xVector = _mm256_loadu_pd(x + i);
             xVector = _mm256_mul_pd(xVector, xVector);
             resultVector = _mm256_add_pd(xVector, resultVector);
         }
@@ -35,8 +35,8 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
     } else {
         // fmadd = a*b+c
         for (i = 0; i < loopN; i += loopFactor) {
-            xVector = _mm256_load_pd(x + i);
-            yVector = _mm256_load_pd(y + i);
+            xVector = _mm256_loadu_pd(x + i);
+            yVector = _mm256_loadu_pd(y + i);
             xVector = _mm256_mul_pd(xVector, yVector);
             resultVector = _mm256_add_pd(xVector, resultVector);
         }

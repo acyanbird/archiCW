@@ -30,31 +30,31 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
 
     if (alpha == 1.0) {
         for (i = 0; i < loopN; i += loopFactor) {
-            xVector = _mm256_load_pd(x + i);
-            yVector = _mm256_load_pd(y + i);
+            xVector = _mm256_loadu_pd(x + i);
+            yVector = _mm256_loadu_pd(y + i);
             yVector = _mm256_mul_pd(betaV, yVector);
-            _mm256_store_pd(w + i, _mm256_add_pd(xVector, yVector));
+            _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
         }
         for (; i < n; i++) {
             w[i] = x[i] + beta * y[i];
         }
     } else if (beta == 1.0) {
         for (i = 0; i < loopN; i += loopFactor) {
-            xVector = _mm256_load_pd(x + i);
-            yVector = _mm256_load_pd(y + i);
+            xVector = _mm256_loadu_pd(x + i);
+            yVector = _mm256_loadu_pd(y + i);
             xVector = _mm256_mul_pd(alphaV, xVector);
-            _mm256_store_pd(w + i, _mm256_add_pd(xVector, yVector));
+            _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
         }
         for (; i < n; i++) {
             w[i] = alpha * x[i] + y[i];
         }
     } else {
         for (i = 0; i < loopN; i += loopFactor) {
-            xVector = _mm256_load_pd(x + i);
-            yVector = _mm256_load_pd(y + i);
+            xVector = _mm256_loadu_pd(x + i);
+            yVector = _mm256_loadu_pd(y + i);
             xVector = _mm256_mul_pd(alphaV, xVector);
             yVector = _mm256_mul_pd(betaV, yVector);
-            _mm256_store_pd(w + i, _mm256_add_pd(xVector, yVector));
+            _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
         }
         for (; i < n; i++) {
             w[i] = alpha * x[i] + beta * y[i];
