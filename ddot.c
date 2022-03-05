@@ -23,7 +23,8 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
         // fmadd = a*b+c
         for (i = 0; i < loopN; i += loopFactor) {
             xVector = _mm256_load_pd(x + i);
-            resultVector = _mm256_fmadd_pd(xVector, xVector, resultVector);
+            xVector = _mm256_mul_pd(xVector, xVector);
+            resultVector = _mm256_add_pd(xVector, resultVector);
         }
         for (; i < n; i++) {
             // wrap up, store to local result
@@ -34,7 +35,8 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
         for (i = 0; i < loopN; i += loopFactor) {
             xVector = _mm256_load_pd(x + i);
             yVector = _mm256_load_pd(y + i);
-            resultVector = _mm256_fmadd_pd(xVector, yVector, resultVector);
+            xVector = _mm256_mul_pd(xVector, yVector);
+            resultVector = _mm256_add_pd(xVector, resultVector);
         }
         for (; i < n; i++) {
             // wrap up, store to local result
@@ -47,7 +49,7 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
     // get upper 2, which is sum of original vector
     __m128d sumHigh = _mm256_extractf128_pd(resultVector, 1);
     // cut lower part of vector
-    __m128 sum = _mm_add_pd(sumHigh, _mm256_castpd256_pd128(resultVector));
+    __m128d sum = _mm_add_pd(sumHigh, _mm256_castpd256_pd128(resultVector));
     _mm_loadl_pd(sum, result);
     *result += local_result;
 
