@@ -1,5 +1,6 @@
 #include "ddot.h"
 #include <immintrin.h>
+#include <omp.h>
 
 /**
  * @brief Compute the dot product of two vectors
