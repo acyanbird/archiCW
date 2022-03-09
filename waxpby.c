@@ -27,36 +27,45 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
     int loopN = n / loopFactor * loopFactor;
     int i;
 
-    if (alpha == 1.0) {
-        for (i = 0; i < loopN; i += loopFactor) {
-            xVector = _mm256_loadu_pd(x + i);
-            yVector = _mm256_loadu_pd(y + i);
-            yVector = _mm256_mul_pd(betaV, yVector);
-            _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
-        }
-        for (; i < n; i++) {
-            w[i] = x[i] + beta * y[i];
-        }
-    } else if (beta == 1.0) {
-        for (i = 0; i < loopN; i += loopFactor) {
-            xVector = _mm256_loadu_pd(x + i);
-            yVector = _mm256_loadu_pd(y + i);
-            xVector = _mm256_mul_pd(alphaV, xVector);
-            _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
-        }
-        for (; i < n; i++) {
-            w[i] = alpha * x[i] + y[i];
-        }
-    } else {
-        for (i = 0; i < loopN; i += loopFactor) {
-            xVector = _mm256_loadu_pd(x + i);
-            yVector = _mm256_loadu_pd(y + i);
-            xVector = _mm256_mul_pd(alphaV, xVector);
-            yVector = _mm256_mul_pd(betaV, yVector);
-            _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
-        }
-        for (; i < n; i++) {
-            w[i] = alpha * x[i] + beta * y[i];
+#pragma omp parallel private(xVector, yVector) shared(alphaV, betaV)
+    {
+        if (alpha == 1.0) {
+#pragma omp for schedule(auto)
+            for (i = 0; i < loopN; i += loopFactor) {
+                xVector = _mm256_loadu_pd(x + i);
+                yVector = _mm256_loadu_pd(y + i);
+                yVector = _mm256_mul_pd(betaV, yVector);
+                _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
+            }
+#pragma omp for schedule(auto)
+            for (i = loopN; i < n; i++) {
+                w[i] = x[i] + beta * y[i];
+            }
+        } else if (beta == 1.0) {
+#pragma omp for schedule(auto)
+            for (i = 0; i < loopN; i += loopFactor) {
+                xVector = _mm256_loadu_pd(x + i);
+                yVector = _mm256_loadu_pd(y + i);
+                xVector = _mm256_mul_pd(alphaV, xVector);
+                _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
+            }
+#pragma omp for schedule(auto)
+            for (i = loopN ; i < n; i++) {
+                w[i] = alpha * x[i] + y[i];
+            }
+        } else {
+#pragma omp for schedule(auto)
+            for (i = 0; i < loopN; i += loopFactor) {
+                xVector = _mm256_loadu_pd(x + i);
+                yVector = _mm256_loadu_pd(y + i);
+                xVector = _mm256_mul_pd(alphaV, xVector);
+                yVector = _mm256_mul_pd(betaV, yVector);
+                _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
+            }
+#pragma omp for schedule(auto)
+            for (i = loopN; i < n; i++) {
+                w[i] = alpha * x[i] + beta * y[i];
+            }
         }
     }
 
