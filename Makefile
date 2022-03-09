@@ -1,6 +1,6 @@
 #Setup compiler and key flags
 CC = gcc
-CPPFLAGS = -O0 -Wall -Wextra -Werror -mavx2 -g -fopenmp
+CPPFLAGS = -O3 -Wall -Wextra -Werror -mavx2 -g -fopenmp
 LIB_PATHS = -lm
 TARGET = acacgs
 
@@ -8,7 +8,7 @@ TARGET = acacgs
 BUILD_DIR = ./build
 
 #Define critical C files
-CC_LIST = main.c generate_matrix.c conjugateGradient.c sparsemv.c waxpby.c ddot.c compute_residual.c mytimer.c
+CC_LIST =main.c generate_matrix.c conjugateGradient.c sparsemv.c waxpby.c ddot.c compute_residual.c mytimer.c
 
 #If you are using Silo, append the writer file to the compilation list, and add required flags
 ifdef SILO
@@ -24,6 +24,7 @@ CPPFLAGS += -DUSING_VERBOSE
 endif
 
 #Generate the object names and paths, now that the list is complete
+
 CC_OBJ_LIST := $(CC_LIST:%.c=$(BUILD_DIR)/%.o)
 
 #----- TARGETS -----

@@ -79,4 +79,33 @@ ddot Kernel:     2.066395e+02 MFLOP/s
 waxpby Kernel:   2.744752e+02 MFLOP/s
 sparsemv Kernel: 7.634553e+00 MFLOP/s
 
-Difference between computed and exact = 1.110223e-15 
+Difference between computed and exact = 1.110223e-15
+
+#### ddot, waxpby avx, sparsemv, waxpby openmp
+
+===== Final Statistics =====
+Executable name:      /dcs/20/u2061245/kudo/archiCW/./acacgs
+Dimensions:           20 20 20
+Number of iterations: 149
+Final residual:       1.629319e-51
+
+=== Time ==
+Total:           8.864465e+00 seconds
+ddot Kernel:     2.819500e-02 seconds
+waxpby Kernel:   2.426100e-02 seconds
+sparsemv Kernel: 8.811509e+00 seconds
+
+=== FLOP ==
+Total:           7.628800e+07 floating point operations
+ddot Kernel:     4.768000e+06 floating point operations
+waxpby Kernel:   7.152000e+06 floating point operations
+sparsemv Kernel: 6.436800e+07 floating point operations
+
+=== MFLOP/s ==
+Total:           8.606047e+00 MFLOP/s
+ddot Kernel:     1.691080e+02 MFLOP/s
+waxpby Kernel:   2.947941e+02 MFLOP/s
+sparsemv Kernel: 7.304992e+00 MFLOP/s
+
+Difference between computed and exact = 1.332268e-15 
+

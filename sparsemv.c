@@ -67,7 +67,7 @@ int sparsemv(struct mesh *A, const double * const x, double * const y)
       const int * const cur_inds = (const int * const) A->ptr_to_inds_in_row[i];
       const int cur_nnz = (const int) A->nnz_in_row[i];
 
-#pragma omp parallel for num_threads(6) schedule(auto) reduction(+:sum)
+#pragma omp parallel for simd schedule(auto) reduction(+:sum)
           for (int j = 0; j < cur_nnz; j++) {
               sum += cur_vals[j] * x[cur_inds[j]];
           }
