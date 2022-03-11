@@ -20,7 +20,7 @@ int ddot(const int n, const double *const x, const double *const y, double *cons
     __m256d xVector, yVector;
 
         if (y == x) {
-            // fmadd = a*b+c
+
             for (i = 0; i < loopN; i += loopFactor) {
                 xVector = _mm256_loadu_pd(x + i);
                 xVector = _mm256_mul_pd(xVector, xVector);
