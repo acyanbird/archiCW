@@ -23,7 +23,8 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
     __m256d xVector, yVector;
 
     // 4 double per 256 bits
-    int loopFactor = 4;
+    // try 8
+    int loopFactor = 8;
     int loopN = n / loopFactor * loopFactor;
     int i;
 
@@ -36,6 +37,11 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
                 yVector = _mm256_loadu_pd(y + i);
                 yVector = _mm256_mul_pd(betaV, yVector);
                 _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
+
+                xVector = _mm256_loadu_pd(x + i + 4);
+                yVector = _mm256_loadu_pd(y + i + 4);
+                yVector = _mm256_mul_pd(betaV, yVector);
+                _mm256_storeu_pd(w + i + 4, _mm256_add_pd(xVector, yVector));
             }
             for (i = loopN; i < n; i++) {
                 w[i] = x[i] + beta * y[i];
@@ -47,6 +53,11 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
                 yVector = _mm256_loadu_pd(y + i);
                 xVector = _mm256_mul_pd(alphaV, xVector);
                 _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
+
+                xVector = _mm256_loadu_pd(x + i + 4);
+                yVector = _mm256_loadu_pd(y + i + 4);
+                xVector = _mm256_mul_pd(alphaV, xVector);
+                _mm256_storeu_pd(w + i + 4, _mm256_add_pd(xVector, yVector));
             }
             for (i = loopN; i < n; i++) {
                 w[i] = alpha * x[i] + y[i];
@@ -59,6 +70,12 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
                 xVector = _mm256_mul_pd(alphaV, xVector);
                 yVector = _mm256_mul_pd(betaV, yVector);
                 _mm256_storeu_pd(w + i, _mm256_add_pd(xVector, yVector));
+
+                xVector = _mm256_loadu_pd(x + i + 4);
+                yVector = _mm256_loadu_pd(y + i + 4);
+                xVector = _mm256_mul_pd(alphaV, xVector);
+                yVector = _mm256_mul_pd(betaV, yVector);
+                _mm256_storeu_pd(w + i + 4, _mm256_add_pd(xVector, yVector));
             }
             for (i = loopN; i < n; i++) {
                 w[i] = alpha * x[i] + beta * y[i];
