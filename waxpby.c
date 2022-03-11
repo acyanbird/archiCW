@@ -32,6 +32,7 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
     {
         if (alpha == 1.0) {
 #pragma omp for simd schedule(auto)
+            // exe twice per time, since storing in different place so no race
             for (i = 0; i < loopN; i += loopFactor) {
                 xVector = _mm256_loadu_pd(x + i);
                 yVector = _mm256_loadu_pd(y + i);

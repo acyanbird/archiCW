@@ -1,6 +1,5 @@
 #include "ddot.h"
 #include <immintrin.h>
-#include <omp.h>
 
 /**
  * @brief Compute the dot product of two vectors
@@ -14,34 +13,40 @@
 int ddot(const int n, const double *const x, const double *const y, double *const result) {
     double local_result = 0.0;
     int i;
-    int loopFactor = 4;// 4 double in 256
+    int loopFactor = 8;// 4 double in 256, but twice per time
     int loopN = n / loopFactor * loopFactor;
     __m256d resultVector = _mm256_setzero_pd();
     __m256d xVector, yVector;
 
         if (y == x) {
-
+            // load x calculate and store to result vector, twice per time
             for (i = 0; i < loopN; i += loopFactor) {
                 xVector = _mm256_loadu_pd(x + i);
                 xVector = _mm256_mul_pd(xVector, xVector);
                 resultVector = _mm256_add_pd(xVector, resultVector);
+
+                xVector = _mm256_loadu_pd(x + i + 4);
+                xVector = _mm256_mul_pd(xVector, xVector);
+                resultVector = _mm256_add_pd(xVector, resultVector);
             }
 
-#pragma omp parallel for simd reduction(+: local_result)
             for (i = loopN; i < n; i++) {
                 // wrap up, store to local result
                 local_result += x[i] * x[i];
             }
 
         } else {
-            // fmadd = a*b+c
             for (i = 0; i < loopN; i += loopFactor) {
                 xVector = _mm256_loadu_pd(x + i);
                 yVector = _mm256_loadu_pd(y + i);
                 xVector = _mm256_mul_pd(xVector, yVector);
                 resultVector = _mm256_add_pd(xVector, resultVector);
+
+                xVector = _mm256_loadu_pd(x + i + 4);
+                yVector = _mm256_loadu_pd(y + i + 4);
+                xVector = _mm256_mul_pd(xVector, yVector);
+                resultVector = _mm256_add_pd(xVector, resultVector);
             }
-#pragma omp parallel for simd reduction(+: local_result)
             for (i = loopN; i < n; i++) {
                 // wrap up, store to local result
                 local_result += x[i] * y[i];
