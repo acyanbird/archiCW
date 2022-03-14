@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <immintrin.h>
-#include <omp.h>
+//#include <omp.h>
 
 #include "sparsemv.h"
 
@@ -66,7 +66,7 @@ int sparsemv(struct mesh *A, const double * const x, double * const y)
       const double * const cur_vals = (const double * const) A->ptr_to_vals_in_row[i];
       const int * const cur_inds = (const int * const) A->ptr_to_inds_in_row[i];
       const int cur_nnz = (const int) A->nnz_in_row[i];
-      int j;
+      int j = 0;
 
       int loopFactor = 4;
       int loopN = cur_nnz / loopFactor * loopFactor;

@@ -137,3 +137,30 @@ sparsemv Kernel: 2.989502e+03 MFLOP/s
 
 Difference between computed and exact = 1.776357e-15 
 
+#### simd
+===== Final Statistics =====
+Executable name:      ./acacgs
+Dimensions:           20 20 20
+Number of iterations: 149
+Final residual:       6.506193e-51
+
+=== Time ==
+Total:           2.913229e+00 seconds
+ddot Kernel:     1.604080e-03 seconds
+waxpby Kernel:   3.211498e-03 seconds
+sparsemv Kernel: 2.908347e+00 seconds
+
+=== FLOP ==
+Total:           7.628800e+07 floating point operations
+ddot Kernel:     4.768000e+06 floating point operations
+waxpby Kernel:   7.152000e+06 floating point operations
+sparsemv Kernel: 6.436800e+07 floating point operations
+
+=== MFLOP/s ==
+Total:           2.618675e+01 MFLOP/s
+ddot Kernel:     2.972420e+03 MFLOP/s
+waxpby Kernel:   2.226998e+03 MFLOP/s
+sparsemv Kernel: 2.213216e+01 MFLOP/s
+
+Difference between computed and exact = 1.332268e-15 
+
