@@ -218,3 +218,29 @@ sparsemv Kernel: 3.267620e+02 MFLOP/s
 
 Difference between computed and exact = 1.776357e-15 
 
+#### final ddot, waxpby vector, sparse unroll
+===== Final Statistics =====
+Executable name:      /dcs/20/u2061245/kudo/archiCW/./acacgs
+Dimensions:           20 20 20
+Number of iterations: 149
+Final residual:       1.353069e-50
+
+=== Time ==
+Total:           2.337694e-02 seconds
+ddot Kernel:     6.859303e-04 seconds
+waxpby Kernel:   1.078129e-03 seconds
+sparsemv Kernel: 2.158594e-02 seconds
+
+=== FLOP ==
+Total:           7.628800e+07 floating point operations
+ddot Kernel:     4.768000e+06 floating point operations
+waxpby Kernel:   7.152000e+06 floating point operations
+sparsemv Kernel: 6.436800e+07 floating point operations
+
+=== MFLOP/s ==
+Total:           3.263387e+03 MFLOP/s
+ddot Kernel:     6.951144e+03 MFLOP/s
+waxpby Kernel:   6.633716e+03 MFLOP/s
+sparsemv Kernel: 2.981941e+03 MFLOP/s
+
+Difference between computed and exact = 1.776357e-15 
