@@ -28,10 +28,10 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
     int loopN = n / loopFactor * loopFactor;
     int i;
 
-#pragma omp parallel private(xVector, yVector) shared(alphaV, betaV)
-    {
+//#pragma omp parallel private(xVector, yVector) shared(alphaV, betaV)
+//    {
         if (alpha == 1.0) {
-#pragma omp for simd schedule(auto)
+//#pragma omp for simd schedule(auto)
             // exe twice per time, since storing in different place so no race
             for (i = 0; i < loopN; i += loopFactor) {
                 xVector = _mm256_loadu_pd(x + i);
@@ -48,7 +48,7 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
                 w[i] = x[i] + beta * y[i];
             }
         } else if (beta == 1.0) {
-#pragma omp for simd schedule(auto)
+//#pragma omp for simd schedule(auto)
             for (i = 0; i < loopN; i += loopFactor) {
                 xVector = _mm256_loadu_pd(x + i);
                 yVector = _mm256_loadu_pd(y + i);
@@ -64,7 +64,7 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
                 w[i] = alpha * x[i] + y[i];
             }
         } else {
-#pragma omp for simd schedule(auto)
+//#pragma omp for simd schedule(auto)
             for (i = 0; i < loopN; i += loopFactor) {
                 xVector = _mm256_loadu_pd(x + i);
                 yVector = _mm256_loadu_pd(y + i);
@@ -82,7 +82,7 @@ int waxpby(const int n, const double alpha, const double *const x, const double 
                 w[i] = alpha * x[i] + beta * y[i];
             }
         }
-    }
+  //  }
 
     return 0;
 }
