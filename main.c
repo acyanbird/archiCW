@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
   time(&rawtime);
   struct tm * ptm = localtime(&rawtime);
   char fileName[25];
-  sprintf(fileName,"%04d_%02d_%02d_%02d_%02d_%02d",ptm->tm_year + 1900, ptm->tm_mon+1,
+  sprintf(fileName,"%02d_%02d_%02d_%02d_%02d",ptm->tm_mon+1,
     ptm->tm_mday, ptm->tm_hour, ptm->tm_min,ptm->tm_sec);
 
   if (argc < 4) {
