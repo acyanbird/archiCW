@@ -164,3 +164,29 @@ sparsemv Kernel: 2.213216e+01 MFLOP/s
 
 Difference between computed and exact = 1.332268e-15 
 
+#### del openmp del g
+===== Final Statistics =====
+Executable name:      /dcs/20/u2061245/kudo/archiCW/./acacgs
+Dimensions:           20 20 20
+Number of iterations: 149
+Final residual:       1.353069e-50
+
+=== Time ==
+Total:           2.342248e-02 seconds
+ddot Kernel:     6.940365e-04 seconds
+waxpby Kernel:   1.070499e-03 seconds
+sparsemv Kernel: 2.162910e-02 seconds
+
+=== FLOP ==
+Total:           7.628800e+07 floating point operations
+ddot Kernel:     4.768000e+06 floating point operations
+waxpby Kernel:   7.152000e+06 floating point operations
+sparsemv Kernel: 6.436800e+07 floating point operations
+
+=== MFLOP/s ==
+Total:           3.257042e+03 MFLOP/s
+ddot Kernel:     6.869956e+03 MFLOP/s
+waxpby Kernel:   6.680994e+03 MFLOP/s
+sparsemv Kernel: 2.975991e+03 MFLOP/s
+
+Difference between computed and exact = 1.776357e-15 
